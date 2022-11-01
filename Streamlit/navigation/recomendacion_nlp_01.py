@@ -5,7 +5,6 @@ import streamlit as st
 import pandas as pd
 warnings.filterwarnings('ignore')
 from functions import paginator
-import webbrowser
 
 
 def pageII():
@@ -56,15 +55,13 @@ def pageII():
         for i in range(5):
             title1 = df_products['title'].where(df_products['asinID'] == products[i]).dropna().reset_index(drop=True)[0]
             col1.subheader(title1)
-            col1.write(f"ID: {products[i]}")
-            if col1.button("Search in Amazon↗️", key=f'amazonSearch{i}'):
-                webbrowser.open_new_tab(f'https://www.amazon.com/s?k={products[i]}')
+            url1 = 'https://www.amazon.com/s?k=' + products[i]
+            col1.markdown(f"ID: {products[i]} - [Search in Amazon]({url1})")
             image1 = df_products['imUrl'].where(df_products['asinID'] == products[i]).dropna().reset_index(drop=True)[0]
             col1.image(image1, width=110)
             title2 = df_products['title'].where(df_products['asinID'] == products[i+5]).dropna().reset_index(drop=True)[0]
             col2.subheader(title2)
-            col2.write(f"ID: {products[i+5]}")
-            if col2.button("Search in Amazon↗️", key=f'amazonSearch{i+5}'):
-                webbrowser.open_new_tab(f'https://www.amazon.com/s?k={products[i+5]}')
+            url2 = 'https://www.amazon.com/s?k=' + products[i+5]
+            col2.markdown(f"ID: {products[i+5]} - [Search in Amazon]({url2})")
             image2 = image1 = df_products['imUrl'].where(df_products['asinID'] == products[i+5]).dropna().reset_index(drop=True)[0]
             col2.image(image2, width=110)
